@@ -1,30 +1,39 @@
-*{
+/* Global Reset and Box Sizing */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+/* Base Body Styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #0d0d0d;
-    color: #e0e0e0;
+    background-color: #0d0d0d; /* Dark Background */
+    color: #e0e0e0; /* Light Text */
 }
+
+/* Content Container */
 .container {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px 0;
 }
+
+/* Header Section */
 header {
     background-color: #1a1a1a;
     text-align: center;
     padding: 50px 0;
-    border-bottom: 3px solid #ffcc00;
+    border-bottom: 3px solid #ffcc00; /* Yellow Accent Line */
 }
+
 .header-content {
     display: flex;
     flex-direction: column;
     align-items: center; 
 }
+
 .logo-img {
     width: 100px;
     height: 100px;
@@ -33,8 +42,9 @@ header {
     border: 3px solid #ffcc00;
     background-color: #555; 
 }
+
 header h1 {
-    color: #ffcc00; 
+    color: #ffcc00; /* Yellow Accent */
     font-size: 3em;
     margin: 5px 0;
 }
@@ -45,6 +55,7 @@ header p {
     margin-bottom: 20px;
 }
 
+/* Call to Action Button */
 .cta-button {
     background-color: #ffcc00;
     color: #1a1a1a;
@@ -57,76 +68,106 @@ header p {
 .cta-button:hover {
     background-color: #e6b800;
 }
+
+/* Navigation Bar */
 .navbar {
     background-color: #333;
     display: flex; 
     justify-content: center; 
     padding: 15px 0;
 }
+
 .navbar a {
     color: #fff;
     text-decoration: none;
     padding: 0 20px;
     font-size: 1.1em;
 }
+
 .navbar a:hover{
     color: #ffcc00;
 }
+
+/* General Section Styling */
 section{
     padding: 60px 0;
     text-align: center;
 }
+
 section h2{
     font-size: 2.5em;
     margin-bottom: 30px;
     color: #ffcc00;
 }
+
+/* About Section */
 .about-section {
     background-color: #1f1f1f;
 }
+
 .about-section p {
     max-width: 800px;
     margin: 0 auto;
     line-height: 1.6;
 }
+
+/* Menu Section */
 .menu-section {
     background-color: #0d0d0d;
 }
+
+/*
+ * Menu Grid Configuration
+ *
+ * NOTE: The original code had two conflicting definitions for .menu-grid.
+ * The original first definition was: grid-template-columns: repeat(2, 1fr);
+ * The original second definition was: grid-template-columns: 1fr;
+ * The second one was placed later and would override the first one, resulting in a single column layout.
+ * We are keeping the single-column layout (1fr) here for simplicity and to match the final definition provided, 
+ * which is often intended for mobile views.
+ */
 .menu-grid {
     display: grid; 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr; /* Single column layout (mobile-friendly) */
     gap: 30px; 
     margin-top: 40px;
 }
+
 .menu-item {
     background-color: #1f1f1f;
     border-radius: 8px;
     text-align: left;
-    }
+}
+
 .menu-item img {
     width: 100%;
     height: 250px;
     object-fit: cover;
     border-bottom: 2px solid #ffcc00;
 }
+
 .item-info {
     padding: 15px;
 }
+
 .menu-item h3 {
     color: #ffcc00;
     margin-bottom: 5px;
 }
+
 .menu-item p {
     color: #cccccc;
     margin-bottom: 10px;
     font-size: 0.9em;
 }
+
 .price {
     font-weight: bold;
-    color: #f77f00; 
+    color: #f77f00; /* Orange Accent */
     font-size: 1.2em;
     margin: 10px 0;
 }
+
 .details-button {
     background-color: #f77f00;
     color: white;
@@ -136,12 +177,16 @@ section h2{
     cursor: pointer;
     font-weight: bold;
 }
+
 .details-button:hover {
     background-color: #cc6a00;
 }
+
+/* Feedback Section */
 .feedback-section {
     background-color: #1f1f1f;
 }
+
 .feedback-form {
     max-width: 600px;
     margin: 0 auto;
@@ -149,6 +194,7 @@ section h2{
     flex-direction: column;
     gap: 15px;
 }
+
 .feedback-form input[type="text"],
 .feedback-form input[type="email"],
 .feedback-form textarea {
@@ -159,11 +205,13 @@ section h2{
     color: #e0e0e0;
     font-size: 1em;
 }
+
 .feedback-form textarea {
     resize: vertical;
 }
+
 .submit-button {
-    background: linear-gradient(to right, #ffcc00, #f77f00);
+    background: linear-gradient(to right, #ffcc00, #f77f00); /* Gradient Effect */
     color: white;
     padding: 15px;
     border: none;
@@ -172,16 +220,16 @@ section h2{
     font-size: 1.2em;
     font-weight: bold;
 }
+
 .submit-button:hover {
     opacity: 0.9;
 }
+
+/* Footer Section */
 footer {
     background-color: #333;
     color: #aaa;
     padding: 20px 0;
     text-align: center;
     font-size: 0.9em;
-}
-.menu-grid {
-    grid-template-columns: 1fr; 
 }
