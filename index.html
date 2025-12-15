@@ -1,634 +1,606 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Planet</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Maintain Custom Dark Theme */
-        body {
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            min-height: 100vh; /* Ensure full viewport height */
-            display: flex;
-            flex-direction: column;
-        }
-        .container {
-            padding: 20px;
-            flex-grow: 1; /* Allows the content container to push the footer/logout down */
-        }
-        /* Custom Orange Accent */
-        .title, .text-orange {
-            color: #ffa500 !important;
-        }
-        .bg-dark-custom {
-            background-color: #111 !important;
-        }
-        .btn-orange {
-            background-color: #ffa500;
-            border-color: #ffa500;
-            color: white;
-        }
-        .btn-orange:hover {
-            background-color: #ff3b2f;
-            border-color: #ff3b2f;
-            color: white;
-        }
-        /* Style for the Menu and Feedback sections */
-        .menu-item img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-        }
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 900px;
-            margin: auto;
-        }
-
-        /* FIX: Added style for the login section to match the desired look */
-        #login-screen {
-            background-color: #111; /* Use your bg-dark-custom color */
-            padding: 40px;
-            border-radius: 10px;
-            margin: 50px auto; /* Center the box */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            max-width: 450px;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Planet</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Maintain Custom Dark Theme */
+        body {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
         }
-
-        /* FIX: Ensure form controls use the dark background correctly */
-        #login-screen .form-control {
-            background-color: #222 !important; /* Slightly lighter dark for the input fields */
-            color: white !important;
-            border-color: #555 !important;
+        .container {
+            padding: 20px;
         }
-
-    </style>
+        /* Custom Orange Accent */
+        .title, .text-orange {
+            color: #ffa500 !important;
+        }
+        .bg-dark-custom {
+            background-color: #111 !important;
+        }
+        .btn-orange {
+            background-color: #ffa500;
+            border-color: #ffa500;
+            color: white;
+        }
+        .btn-orange:hover {
+            background-color: #ff3b2f;
+            border-color: #ff3b2f;
+            color: white;
+        }
+        /* Style for the Menu and Feedback sections */
+        .menu-item img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
-    <header class="py-3 bg-black">
-        <div class="logo">
-            <img src="./logo.png" alt="Restaurant Logo" width="100">
-        </div>
-        <div class="title mb-1">Food Planet</div>
-        <div class="subtitle text-secondary">Your favorite place for delicious food!</div>
-    </header>
+    <header class="py-3 bg-black">
+        <div class="logo">
+            <img src="/logo.png" alt="Restaurant Logo" width="100">
+        </div>
+        <div class="title mb-1">Food Planet</div>
+        <div class="subtitle text-secondary">Your favorite place for delicious food!</div>
+    </header>
 
-    <div class="container mt-5">
-        <section id="login-screen">
-            <h2 class="text-orange mb-4">Log In</h2>
-            <form id="login-form" class="mx-auto" style="max-width: 400px;">
-                <div class="mb-3">
-                    <input type="email" class="form-control bg-dark-custom text-white border-secondary" id="email" placeholder="Email" value="user@foodplanet.com" required>
-                </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control bg-dark-custom text-white border-secondary" id="password" placeholder="Password" value="password" required>
-                </div>
-                <button type="submit" class="btn btn-orange w-100">Login</button>
-            </form>
-            <p class="mt-3 text-secondary">Try: **user@foodplanet.com** or **admin@foodplanet.com**</p>
-        </section>
+    <div class="container mt-5">
+        <section id="login-screen">
+            <h2 class="text-orange mb-4">Log In</h2>
+            <form id="login-form" class="mx-auto" style="max-width: 400px;">
+                <div class="mb-3">
+                    <input type="email" class="form-control bg-dark-custom text-white border-secondary" id="email" placeholder="Email" value="user@foodplanet.com" required>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control bg-dark-custom text-white border-secondary" id="password" placeholder="Password" value="password" required>
+                </div>
+                <button type="submit" class="btn btn-orange w-100">Login</button>
+            </form>
+            <p class="mt-3 text-secondary">Try: **user@foodplanet.com** or **admin@foodplanet.com**</p>
+        </section>
 
-        <div id="app-content"></div>
-    </div>
+        <div id="app-content"></div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <script type="text/babel">
-        // --- DATA SIMULATION (Global Mock Data) ---
-        const ADMIN_EMAIL = 'admin@foodplanet.com';
-        const USER_EMAIL = 'user@foodplanet.com';
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script type="text/babel">
+        // --- DATA SIMULATION (Global Mock Data) ---
+        const ADMIN_EMAIL = 'admin@foodplanet.com';
+        const USER_EMAIL = 'user@foodplanet.com';
 
-        let feedbacks = [
-            { id: 1, name: "Shanza", email: "s@g.com", feedback: "Amazing food, loved the Zinger Burger!", date: "2025-12-14" },
-        ];
+        let feedbacks = [
+            { id: 1, name: "Shanza", email: "s@g.com", feedback: "Amazing food, loved the Zinger Burger!", date: "2025-12-14" },
+        ];
 
-        let todayOrders = [
-            { id: 101, item: "Zinger Burger", quantity: 2, total: "Rs. 1000", status: "New" },
-        ];
-        
-        // Initial Menu Data
-        // FIX: All image paths changed from / to ./ for GitHub Pages compatibility
-        // FIX: Filenames with spaces updated to use confirmed, space-less names (e.g., bbqwings.jpg)
-        const INITIAL_MENU_DATA = [
-            { id: 1, name: "Zinger Burger", desc: "Juicy chicken patty with melted cheese and special sauce.", price: 500, img: "./burger.jpg" },
-            { id: 2, name: "Creamy Pasta", desc: "Rich and cheesy pasta with your choice of sauce.", price: 700, img: "./pasta.jpg" },
-            { id: 3, name: "Pizza", desc: "Spicy chicken pizza with melted cheese and special sauce.", price: 1000, img: "./pizza.jpg" },
-            { id: 4, name: "Biryani", desc: "Yummy desi rice.", price: 600, img: "./biryani.jpg" },
-            { id: 5, name: "BBQ Wings", desc: "Saucy chicken BBQ wings.", price: 600, img: "./bbqwings.jpg" }, 
-            { id: 6, name: "Loaded Fries", desc: "Fries loaded with cheese and chicken..", price: 400, img: "./loadedfries.jpg" }, 
-            { id: 7, name: "Chicken Karahi", desc: "Yummy desi chicken karahi.", price: 1400, img: "./karahi.jpg" },
-            { id: 8, name: "Naan", desc: "Rogni Naan.", price: 40, img: "./naan.jpg" },
-            { id: 9, name: "Fried Rice", desc: "Yummy desi chicken fried rice.", price: 600, img: "./friedrice.jpg" }, 
-            { id: 10, name: "Platter", desc: "Special desi platter.", price: 2000, img: "./platter.jpg" },
-        ];
+        let todayOrders = [
+            { id: 101, item: "Zinger Burger", quantity: 2, total: "Rs. 1000", status: "New" },
+        ];
+        
+        // Initial Menu Data
+        // NOTE: New items must be added here to be persistent across runs.
+        const INITIAL_MENU_DATA = [
+            { id: 1, name: "Zinger Burger", desc: "Juicy chicken patty with melted cheese and special sauce.", price: 500, img: "/burger.jpg" },
+            { id: 2, name: "Creamy Pasta", desc: "Rich and cheesy pasta with your choice of sauce.", price: 700, img: "/pasta.jpg" },
+            { id: 3, name: "Pizza", desc: "Spicy chicken pizza with melted cheese and special sauce.", price: 1000, img: "/pizza.jpg" },
+            { id: 4, name: "Biryani", desc: "Yummy desi rice.", price: 600, img: "/biryani.jpg" },
+            { id: 5, name: "BBQ Wings", desc: "Saucy chicken BBQ wings.", price: 600, img: "/bbq wings.jpg" },
+            { id: 6, name: "Loaded Fries", desc: "Fries loaded with cheese and chicken..", price: 400, img: "/loaded fries.jpg" },
+            { id: 7, name: "Chicken Karahi", desc: "Yummy desi chicken karahi.", price: 1400, img: "/karahi.jpg" },
+            { id: 8, name: "Naan", desc: "Rogni Naan.", price: 40, img: "/naan.jpg" },
+            { id: 9, name: "Fried Rice", desc: "Yummy desi chicken fried rice.", price: 600, img: "/fried rice.jpg" },
+            { id: 10, name: "Platter", desc: "Special desi platter.", price: 2000, img: "/platter.jpg" },
 
-        // --- COMPONENTS ---
+        ];
 
-        // Nav Bar Component (Shared)
-        function Navbar({ role, setView, cart }) {
-            const userLinks = [
-                { name: 'About', view: 'about' },
-                { name: 'Menu', view: 'menu' },
-                { name: 'Feedback', view: 'feedback' },
-                { name: `Cart (${cart.length})`, view: 'cart' },
-                { name: 'Settings', view: 'settings' }
-            ];
+        // --- COMPONENTS ---
 
-            const adminLinks = [
-                { name: 'Today Orders', view: 'orders' },
-                { name: 'View Feedback', view: 'viewFeedback' },
-                { name: 'Admin Settings', view: 'adminSettings' }
-            ];
+        // Nav Bar Component (Shared)
+        function Navbar({ role, setView, cart }) {
+            const userLinks = [
+                { name: 'About', view: 'about' },
+                { name: 'Menu', view: 'menu' },
+                { name: 'Feedback', view: 'feedback' },
+                { name: `Cart (${cart.length})`, view: 'cart' },
+                { name: 'Settings', view: 'settings' }
+            ];
 
-            const links = role === 'admin' ? adminLinks : userLinks;
+            const adminLinks = [
+                { name: 'Today Orders', view: 'orders' },
+                { name: 'View Feedback', view: 'viewFeedback' },
+                { name: 'Admin Settings', view: 'adminSettings' }
+            ];
 
-            return (
-                <nav className="navbar navbar-expand bg-dark-custom border-top border-bottom border-orange">
-                    <div className="container-fluid justify-content-center">
-                        {links.map(link => (
-                            <button key={link.name} className="btn btn-link text-white text-decoration-none mx-3 fw-bold" onClick={() => setView(link.view)}>
-                                {link.name}
-                            </button>
-                        ))}
-                    </div>
-                </nav>
-            );
-        }
+            const links = role === 'admin' ? adminLinks : userLinks;
 
-        // Introduction/About Component (Shared)
-        function Intro() {
-            return (
-                <section className="about bg-dark-custom mx-auto mt-5 p-4 rounded" style={{ maxWidth: '70%' }}>
-                    <h2 className="text-orange mb-3">About Us</h2>
-                    <p className="text-secondary" style={{ lineHeight: 1.6 }}>
-                        Welcome to My Restaurant! We are dedicated to serving you delicious and high-quality food, made with love and fresh ingredients. Whether you're here for a quick bite or a special occasion, we promise to make your dining experience memorable.
-                    </p>
-                </section>
-            );
-        }
+            return (
+                <nav className="navbar navbar-expand bg-dark-custom border-top border-bottom border-orange">
+                    <div className="container-fluid justify-content-center">
+                        {links.map(link => (
+                            <button key={link.name} className="btn btn-link text-white text-decoration-none mx-3 fw-bold" onClick={() => setView(link.view)}>
+                                {link.name}
+                            </button>
+                        ))}
+                    </div>
+                </nav>
+            );
+        }
 
-        // USER VIEWS
+        // Introduction/About Component (Shared)
+        function Intro() {
+            return (
+                <section className="about bg-dark-custom mx-auto mt-5 p-4 rounded" style={{ maxWidth: '70%' }}>
+                    <h2 className="text-orange mb-3">About Us</h2>
+                    <p className="text-secondary" style={{ lineHeight: 1.6 }}>
+                        Welcome to My Restaurant! We are dedicated to serving you delicious and high-quality food, made with love and fresh ingredients. Whether you're here for a quick bite or a special occasion, we promise to make your dining experience memorable.
+                    </p>
+                </section>
+            );
+        }
 
-        function MenuView({ menuItems, addToCart }) {
-            return (
-                <section id="menu" className="py-5">
-                    <h2 className="text-white">Our Menu</h2><br />
-                    <div className="menu-grid">
-                        {menuItems.map(item => (
-                            <div key={item.id} className="menu-item p-3 rounded shadow-sm" style={{ backgroundColor: '#000' }}>
-                                <img src={item.img} alt={item.name} className="img-fluid mb-2 rounded" />
-                                <h3 className="text-white">{item.name}</h3><br />
-                                <p className="text-secondary">{item.desc}</p><br />
-                                <p className="text-orange fs-5 fw-bold">Rs. {item.price}</p><br />
-                                <button className="btn btn-orange" onClick={() => addToCart(item)}>Add to Cart</button><br />
-                            </div>
-                        ))}
-                    </div>
-                </section>
-            );
-        }
+        // USER VIEWS
 
-        function FeedbackView() {
-            const [name, setName] = React.useState('');
-            const [email, setEmail] = React.useState('');
-            const [feedbackText, setFeedbackText] = React.useState('');
-            const [message, setMessage] = React.useState('');
+        function MenuView({ menuItems, addToCart }) {
+            return (
+                <section id="menu" className="py-5">
+                    <h2 className="text-white">Our Menu</h2><br />
+                    <div className="menu-grid">
+                        {menuItems.map(item => (
+                            <div key={item.id} className="menu-item p-3 rounded shadow-sm" style={{ backgroundColor: '#000' }}>
+                                <img src={item.img} alt={item.name} className="img-fluid mb-2 rounded" />
+                                <h3 className="text-white">{item.name}</h3><br />
+                                <p className="text-secondary">{item.desc}</p><br />
+                                <p className="text-orange fs-5 fw-bold">Rs. {item.price}</p><br />
+                                <button className="btn btn-orange" onClick={() => addToCart(item)}>Add to Cart</button><br />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            );
+        }
 
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                const newFeedback = {
-                    id: feedbacks.length + 1,
-                    name: name,
-                    email: email,
-                    feedback: feedbackText,
-                    date: new Date().toISOString().slice(0, 10)
-                };
-                feedbacks.push(newFeedback); // Update simulated data
-                setMessage("Thank you for your feedback! The Admin will review it shortly.");
-                setName('');
-                setEmail('');
-                setFeedbackText('');
-            };
+        function FeedbackView() {
+            const [name, setName] = React.useState('');
+            const [email, setEmail] = React.useState('');
+            const [feedbackText, setFeedbackText] = React.useState('');
+            const [message, setMessage] = React.useState('');
 
-            return (
-                <section className="section py-5">
-                    <form onSubmit={handleSubmit} className="mx-auto" style={{ maxWidth: 500 }}>
-                        <h1 className="text-white">Give Us Your Feedback</h1><br />
-                        <input className="form-control bg-dark-custom text-white border-secondary" type="text" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} required /><br />
-                        <input className="form-control bg-dark-custom text-white border-secondary" type="email" placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br />
-                        <textarea className="form-control bg-dark-custom text-white border-secondary" rows="4" placeholder="Your feedback" value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} required></textarea><br />
-                        <button type="submit" className="btn btn-orange">Submit</button>
-                    </form>
-                    {message && <p className="mt-3 text-success">{message}</p>}
-                </section>
-            );
-        }
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                const newFeedback = {
+                    id: feedbacks.length + 1,
+                    name: name,
+                    email: email,
+                    feedback: feedbackText,
+                    date: new Date().toISOString().slice(0, 10)
+                };
+                feedbacks.push(newFeedback); // Update simulated data
+                setMessage("Thank you for your feedback! The Admin will review it shortly.");
+                setName('');
+                setEmail('');
+                setFeedbackText('');
+            };
 
-        function CartView({ cart, updateCartQuantity, removeFromCart, placeOrder }) {
-            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            return (
+                <section className="section py-5">
+                    <form onSubmit={handleSubmit} className="mx-auto" style={{ maxWidth: 500 }}>
+                        <h1 className="text-white">Give Us Your Feedback</h1><br />
+                        <input className="form-control bg-dark-custom text-white border-secondary" type="text" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} required /><br />
+                        <input className="form-control bg-dark-custom text-white border-secondary" type="email" placeholder="Your email" value={email} onChange={(e) => setEmail(e.target.value)} required /><br />
+                        <textarea className="form-control bg-dark-custom text-white border-secondary" rows="4" placeholder="Your feedback" value={feedbackText} onChange={(e) => setFeedbackText(e.target.value)} required></textarea><br />
+                        <button type="submit" className="btn btn-orange">Submit</button>
+                    </form>
+                    {message && <p className="mt-3 text-success">{message}</p>}
+                </section>
+            );
+        }
 
-            return (
-                <section className="py-5">
-                    <h2 className="text-orange mb-4">Your Order Cart</h2>
-                    <div className="bg-dark-custom mx-auto p-4 rounded shadow-lg" style={{ maxWidth: 700 }}>
-                        {cart.length === 0 ? (
-                            <p className="text-secondary">Your cart is empty. Please add items from the Menu.</p>
-                        ) : (
-                            <React.Fragment>
-                                <ul className="list-group mb-4">
-                                    {cart.map(item => (
-                                        <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center bg-dark text-white border-secondary">
-                                            <span className="fw-bold">{item.name}</span>
-                                            <div className="d-flex align-items-center">
-                                                <button className="btn btn-sm btn-outline-light mx-2" onClick={() => updateCartQuantity(item.id, item.quantity - 1)}>-</button>
-                                                <span className="fw-bold text-orange">{item.quantity}</span>
-                                                <button className="btn btn-sm btn-outline-light mx-2" onClick={() => updateCartQuantity(item.id, item.quantity + 1)}>+</button>
-                                                <span className="mx-3">Rs. {item.price * item.quantity}</span>
-                                                <button className="btn btn-sm btn-danger" onClick={() => removeFromCart(item.id)}>Remove</button>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                                <h4 className="text-white mb-4">Total: <span className="text-orange">Rs. {total}</span></h4>
-                                <button className="btn btn-orange w-100" onClick={placeOrder}>Place Order (Pay on Delivery)</button>
-                            </React.Fragment>
-                        )}
-                    </div>
-                </section>
-            );
-        }
-        
-        function SettingsView() {
-            const [name, setName] = React.useState('Shanza');
-            const [location, setLocation] = React.useState('KPK, Pakistan');
-            const [message, setMessage] = React.useState('');
+        function CartView({ cart, updateCartQuantity, removeFromCart, placeOrder }) {
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-            const handleSave = (e) => {
-                e.preventDefault();
-                setMessage("Profile updated successfully!");
-                setTimeout(() => setMessage(''), 3000);
-            };
+            return (
+                <section className="py-5">
+                    <h2 className="text-orange mb-4">Your Order Cart</h2>
+                    <div className="bg-dark-custom mx-auto p-4 rounded shadow-lg" style={{ maxWidth: 700 }}>
+                        {cart.length === 0 ? (
+                            <p className="text-secondary">Your cart is empty. Please add items from the Menu.</p>
+                        ) : (
+                            <React.Fragment>
+                                <ul className="list-group mb-4">
+                                    {cart.map(item => (
+                                        <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center bg-dark text-white border-secondary">
+                                            <span className="fw-bold">{item.name}</span>
+                                            <div className="d-flex align-items-center">
+                                                <button className="btn btn-sm btn-outline-light mx-2" onClick={() => updateCartQuantity(item.id, item.quantity - 1)}>-</button>
+                                                <span className="fw-bold text-orange">{item.quantity}</span>
+                                                <button className="btn btn-sm btn-outline-light mx-2" onClick={() => updateCartQuantity(item.id, item.quantity + 1)}>+</button>
+                                                <span className="mx-3">Rs. {item.price * item.quantity}</span>
+                                                <button className="btn btn-sm btn-danger" onClick={() => removeFromCart(item.id)}>Remove</button>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <h4 className="text-white mb-4">Total: <span className="text-orange">Rs. {total}</span></h4>
+                                <button className="btn btn-orange w-100" onClick={placeOrder}>Place Order (Pay on Delivery)</button>
+                            </React.Fragment>
+                        )}
+                    </div>
+                </section>
+            );
+        }
+        
+        function SettingsView() {
+            const [name, setName] = React.useState('Shanza');
+            const [location, setLocation] = React.useState('KPK, Pakistan');
+            const [message, setMessage] = React.useState('');
 
-            return (
-                <section className="py-5">
-                    <h2 className="text-orange mb-4">Manage Profile</h2>
-                    <form onSubmit={handleSave} className="mx-auto bg-dark-custom p-4 rounded shadow-lg" style={{ maxWidth: 500 }}>
-                        <div className="mb-3 text-start">
-                            <label htmlFor="userName" className="form-label text-white">Name</label>
-                            <input type="text" className="form-control bg-dark text-white border-secondary" id="userName" value={name} onChange={(e) => setName(e.target.value)} required />
-                        </div>
-                        <div className="mb-3 text-start">
-                            <label htmlFor="userLocation" className="form-label text-white">Location</label>
-                            <input type="text" className="form-control bg-dark text-white border-secondary" id="userLocation" value={location} onChange={(e) => setLocation(e.target.value)} required />
-                        </div>
-                        <button type="submit" className="btn btn-orange w-100 mt-3">Save Changes</button>
-                        {message && <p className="mt-3 text-success">{message}</p>}
-                    </form>
-                </section>
-            );
-        }
+            const handleSave = (e) => {
+                e.preventDefault();
+                setMessage("Profile updated successfully!");
+                setTimeout(() => setMessage(''), 3000);
+            };
 
-        // ADMIN VIEWS
+            return (
+                <section className="py-5">
+                    <h2 className="text-orange mb-4">Manage Profile</h2>
+                    <form onSubmit={handleSave} className="mx-auto bg-dark-custom p-4 rounded shadow-lg" style={{ maxWidth: 500 }}>
+                        <div className="mb-3 text-start">
+                            <label htmlFor="userName" className="form-label text-white">Name</label>
+                            <input type="text" className="form-control bg-dark text-white border-secondary" id="userName" value={name} onChange={(e) => setName(e.target.value)} required />
+                        </div>
+                        <div className="mb-3 text-start">
+                            <label htmlFor="userLocation" className="form-label text-white">Location</label>
+                            <input type="text" className="form-control bg-dark text-white border-secondary" id="userLocation" value={location} onChange={(e) => setLocation(e.target.value)} required />
+                        </div>
+                        <button type="submit" className="btn btn-orange w-100 mt-3">Save Changes</button>
+                        {message && <p className="mt-3 text-success">{message}</p>}
+                    </form>
+                </section>
+            );
+        }
 
-        function AdminViewFeedback() {
-            return (
-                <section className="py-5">
-                    <h2 className="text-orange mb-4">Customer Feedback</h2>
-                    <div className="mx-auto" style={{ maxWidth: 800 }}>
-                        {feedbacks.length > 0 ? (
-                            <ul className="list-group">
-                                {feedbacks.map(f => (
-                                    <li key={f.id} className="list-group-item bg-dark-custom text-white text-start mb-2 rounded border-secondary">
-                                        <h5 className="text-white">{f.name} <span className="float-end text-secondary small">{f.date}</span></h5>
-                                        <p className="text-orange small">{f.email}</p>
-                                        <p className="text-light">{f.feedback}</p>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p className="text-secondary">No feedback received yet.</p>
-                        )}
-                    </div>
-                </section>
-            );
-        }
+        // ADMIN VIEWS
 
-        function AdminTodayOrders() {
-            return (
-                <section className="py-5">
-                    <h2 className="text-orange mb-4">Today's Orders</h2>
-                    <div className="mx-auto" style={{ maxWidth: 800 }}>
-                        {todayOrders.length > 0 ? (
-                            <table className="table table-dark table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Item</th>
-                                        <th scope="col">Quantity</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {todayOrders.map(order => (
-                                        <tr key={order.id}>
-                                            <th scope="row">{order.id}</th>
-                                            <td>{order.item}</td>
-                                            <td>{order.quantity}</td>
-                                            <td>{order.total}</td>
-                                            <td>{order.status}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        ) : (
-                            <p className="text-secondary">No orders placed today.</p>
-                        )}
-                    </div>
-                </section>
-            );
-        }
+        function AdminViewFeedback() {
+            return (
+                <section className="py-5">
+                    <h2 className="text-orange mb-4">Customer Feedback</h2>
+                    <div className="mx-auto" style={{ maxWidth: 800 }}>
+                        {feedbacks.length > 0 ? (
+                            <ul className="list-group">
+                                {feedbacks.map(f => (
+                                    <li key={f.id} className="list-group-item bg-dark-custom text-white text-start mb-2 rounded border-secondary">
+                                        <h5 className="text-white">{f.name} <span className="float-end text-secondary small">{f.date}</span></h5>
+                                        <p className="text-orange small">{f.email}</p>
+                                        <p className="text-light">{f.feedback}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
+                            <p className="text-secondary">No feedback received yet.</p>
+                        )}
+                    </div>
+                </section>
+            );
+        }
 
-        // UPDATED: Admin Settings View with Description and URL inputs
-        function AdminSettingsView({ menuItems, setMenuItems }) {
-            const [newItemName, setNewItemName] = React.useState('');
-            const [newItemPrice, setNewItemPrice] = React.useState('');
-            const [newItemDesc, setNewItemDesc] = React.useState('');
-            const [newItemUrl, setNewItemUrl] = React.useState('');
-            const [statusMessage, setStatusMessage] = React.useState('');
+        function AdminTodayOrders() {
+            return (
+                <section className="py-5">
+                    <h2 className="text-orange mb-4">Today's Orders</h2>
+                    <div className="mx-auto" style={{ maxWidth: 800 }}>
+                        {todayOrders.length > 0 ? (
+                            <table className="table table-dark table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Item</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {todayOrders.map(order => (
+                                        <tr key={order.id}>
+                                            <th scope="row">{order.id}</th>
+                                            <td>{order.item}</td>
+                                            <td>{order.quantity}</td>
+                                            <td>{order.total}</td>
+                                            <td>{order.status}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <p className="text-secondary">No orders placed today.</p>
+                        )}
+                    </div>
+                </section>
+            );
+        }
 
-            const handleAddItem = (e) => {
-                e.preventDefault();
-                // Basic validation for required fields
-                if (!newItemName || !newItemPrice || isNaN(newItemPrice) || parseInt(newItemPrice) <= 0) {
-                    setStatusMessage("Please enter a valid item Name and Price.");
-                    return;
-                }
+        // UPDATED: Admin Settings View with Description and URL inputs
+        function AdminSettingsView({ menuItems, setMenuItems }) {
+            const [newItemName, setNewItemName] = React.useState('');
+            const [newItemPrice, setNewItemPrice] = React.useState('');
+            const [newItemDesc, setNewItemDesc] = React.useState('');
+            const [newItemUrl, setNewItemUrl] = React.useState('');
+            const [statusMessage, setStatusMessage] = React.useState('');
 
-                const newId = menuItems.length > 0 ? Math.max(...menuItems.map(item => item.id)) + 1 : 1;
-                
-                // Construct the new item with all user-provided fields
-                const newItem = {
-                    id: newId,
-                    name: newItemName,
-                    desc: newItemDesc || "A delicious new item added by the Admin.", // Use provided desc or a default
-                    price: parseInt(newItemPrice),
-                    // FIX: Ensure new images added by admin also use relative path if a local image name is entered
-                    img: newItemUrl ? (newItemUrl.startsWith('/') ? `.${newItemUrl}` : newItemUrl) : "./placeholder.jpg" // Use provided URL or a placeholder
-                };
+            const handleAddItem = (e) => {
+                e.preventDefault();
+                // Basic validation for required fields
+                if (!newItemName || !newItemPrice || isNaN(newItemPrice) || parseInt(newItemPrice) <= 0) {
+                    setStatusMessage("Please enter a valid item Name and Price.");
+                    return;
+                }
 
-                setMenuItems([...menuItems, newItem]);
-                setStatusMessage(`Successfully added "${newItemName}" to the menu! (Note: This change is temporary for this session)`);
-                setNewItemName('');
-                setNewItemPrice('');
-                setNewItemDesc('');
-                setNewItemUrl('');
-                setTimeout(() => setStatusMessage(''), 5000);
-                INITIAL_MENU_DATA.push(newItem);
-            };
+                const newId = menuItems.length > 0 ? Math.max(...menuItems.map(item => item.id)) + 1 : 1;
+                
+                // Construct the new item with all user-provided fields
+                const newItem = {
+                    id: newId,
+                    name: newItemName,
+                    desc: newItemDesc || "A delicious new item added by the Admin.", // Use provided desc or a default
+                    price: parseInt(newItemPrice),
+                    img: newItemUrl || "/placeholder.jpg" // Use provided URL or a placeholder
+                };
 
-            const handlePriceUpdate = (itemId, newPrice) => {
-                if (isNaN(newPrice) || newPrice <= 0) {
-                    alert("Please enter a valid price.");
-                    return;
-                }
-                setMenuItems(prevItems => prevItems.map(item => 
-                    item.id === itemId ? { ...item, price: parseInt(newPrice) } : item
-                ));
-                setStatusMessage(`Price for item ID ${itemId} updated successfully!`);
-                setTimeout(() => setStatusMessage(''), 5000);
-            };
+                setMenuItems([...menuItems, newItem]);
+                setStatusMessage(`Successfully added "${newItemName}" to the menu! (Note: This change is temporary for this session)`);
+                setNewItemName('');
+                setNewItemPrice('');
+                setNewItemDesc('');
+                setNewItemUrl('');
+                setTimeout(() => setStatusMessage(''), 5000);
+                INITIAL_MENU_DATA.push(newItem);
+            };
 
-
-            return (
-                <section className="py-5">
-                    <h2 className="text-orange mb-4">Admin Control Panel</h2>
-                    <div className="bg-dark-custom mx-auto p-4 rounded shadow-lg" style={{ maxWidth: 900 }}>
-                        <h4 className="text-white mb-3 text-start">Manage Menu Items</h4>
-                        
-                        {/* Status Message */}
-                        {statusMessage && <div className="alert alert-success">{statusMessage}</div>}
-
-                        {/* Add New Item Form - UPDATED with Description and URL */}
-                        <form onSubmit={handleAddItem} className="mb-5 p-3 rounded border border-secondary text-start">
-                            <h5 className="text-orange mb-3">Add New Menu Item</h5>
-                            <div className="row g-3">
-                                {/* Name and Price */}
-                                <div className="col-md-6">
-                                    <label className="form-label text-secondary small">Item Name (Required)</label>
-                                    <input type="text" className="form-control bg-dark text-white border-secondary" placeholder="e.g., Spicy Chicken Wrap" value={newItemName} onChange={(e) => setNewItemName(e.target.value)} required />
-                                </div>
-                                <div className="col-md-6">
-                                    <label className="form-label text-secondary small">Price (Required)</label>
-                                    <input type="number" className="form-control bg-dark text-white border-secondary" placeholder="e.g., 850" value={newItemPrice} onChange={(e) => setNewItemPrice(e.target.value)} required />
-                                </div>
-                                {/* Description */}
-                                <div className="col-12">
-                                    <label className="form-label text-secondary small">Description</label>
-                                    <input type="text" className="form-control bg-dark text-white border-secondary" placeholder="A short description of the item (optional)" value={newItemDesc} onChange={(e) => setNewItemDesc(e.target.value)} />
-                                </div>
-                                {/* Image URL and Button */}
-                                <div className="col-md-10">
-                                    <label className="form-label text-secondary small">Image URL (Use `./filename.jpg` for local images)</label>
-                                    <input type="text" className="form-control bg-dark text-white border-secondary" placeholder="e.g., ./newitem.jpg or full URL (optional)" value={newItemUrl} onChange={(e) => setNewItemUrl(e.target.value)} />
-                                </div>
-                                <div className="col-md-2 d-flex align-items-end">
-                                    <button type="submit" className="btn btn-orange w-100">Add Item</button>
-                                </div>
-                            </div>
-                        </form>
-
-                        {/* Current Menu Table */}
-                        <table className="table table-dark table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col" className="text-start">Name</th>
-                                    <th scope="col">Current Price</th>
-                                    <th scope="col">Update Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {menuItems.map(item => (
-                                    <tr key={item.id}>
-                                        <th scope="row">{item.id}</th>
-                                        <td className="text-start">{item.name}</td>
-                                        <td>Rs. {item.price}</td>
-                                        <td>
-                                            <input 
-                                                type="number" 
-                                                defaultValue={item.price}
-                                                onBlur={(e) => handlePriceUpdate(item.id, e.target.value)}
-                                                className="form-control form-control-sm bg-dark text-white border-secondary d-inline-block w-50 me-2" 
-                                            />
-                                            <small className="text-secondary">Click outside to save</small>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
-            );
-        }
+            const handlePriceUpdate = (itemId, newPrice) => {
+                if (isNaN(newPrice) || newPrice <= 0) {
+                    alert("Please enter a valid price.");
+                    return;
+                }
+                setMenuItems(prevItems => prevItems.map(item => 
+                    item.id === itemId ? { ...item, price: parseInt(newPrice) } : item
+                ));
+                setStatusMessage(`Price for item ID ${itemId} updated successfully!`);
+                setTimeout(() => setStatusMessage(''), 5000);
+            };
 
 
-        // --- MAIN APP COMPONENT ---
+            return (
+                <section className="py-5">
+                    <h2 className="text-orange mb-4">Admin Control Panel</h2>
+                    <div className="bg-dark-custom mx-auto p-4 rounded shadow-lg" style={{ maxWidth: 900 }}>
+                        <h4 className="text-white mb-3 text-start">Manage Menu Items</h4>
+                        
+                        {/* Status Message */}
+                        {statusMessage && <div className="alert alert-success">{statusMessage}</div>}
 
-        function App() {
-            const [role, setRole] = React.useState(null);
-            const [view, setView] = React.useState('intro');
-            const [cart, setCart] = React.useState([]);
-            const [menuItems, setMenuItems] = React.useState(INITIAL_MENU_DATA); // Menu data is now state
+                        {/* Add New Item Form - UPDATED with Description and URL */}
+                        <form onSubmit={handleAddItem} className="mb-5 p-3 rounded border border-secondary text-start">
+                            <h5 className="text-orange mb-3">Add New Menu Item</h5>
+                            <div className="row g-3">
+                                {/* Name and Price */}
+                                <div className="col-md-6">
+                                    <label className="form-label text-secondary small">Item Name (Required)</label>
+                                    <input type="text" className="form-control bg-dark text-white border-secondary" placeholder="e.g., Spicy Chicken Wrap" value={newItemName} onChange={(e) => setNewItemName(e.target.value)} required />
+                                </div>
+                                <div className="col-md-6">
+                                    <label className="form-label text-secondary small">Price (Required)</label>
+                                    <input type="number" className="form-control bg-dark text-white border-secondary" placeholder="e.g., 850" value={newItemPrice} onChange={(e) => setNewItemPrice(e.target.value)} required />
+                                </div>
+                                {/* Description */}
+                                <div className="col-12">
+                                    <label className="form-label text-secondary small">Description</label>
+                                    <input type="text" className="form-control bg-dark text-white border-secondary" placeholder="A short description of the item (optional)" value={newItemDesc} onChange={(e) => setNewItemDesc(e.target.value)} />
+                                </div>
+                                {/* Image URL and Button */}
+                                <div className="col-md-10">
+                                    <label className="form-label text-secondary small">Image URL</label>
+                                    <input type="text" className="form-control bg-dark text-white border-secondary" placeholder="e.g., /image/newitem.jpg or full URL (optional)" value={newItemUrl} onChange={(e) => setNewItemUrl(e.target.value)} />
+                                </div>
+                                <div className="col-md-2 d-flex align-items-end">
+                                    <button type="submit" className="btn btn-orange w-100">Add Item</button>
+                                </div>
+                            </div>
+                        </form>
 
-            // Cart Logic
-            const addToCart = (itemToAdd) => {
-                setCart(prevCart => {
-                    const existingItem = prevCart.find(item => item.id === itemToAdd.id);
-                    if (existingItem) {
-                        return prevCart.map(item => 
-                            item.id === itemToAdd.id ? { ...item, quantity: item.quantity + 1 } : item
-                        );
-                    } else {
-                        return [...prevCart, { ...itemToAdd, quantity: 1 }];
-                    }
-                });
-            };
+                        {/* Current Menu Table */}
+                        <table className="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col" className="text-start">Name</th>
+                                    <th scope="col">Current Price</th>
+                                    <th scope="col">Update Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {menuItems.map(item => (
+                                    <tr key={item.id}>
+                                        <th scope="row">{item.id}</th>
+                                        <td className="text-start">{item.name}</td>
+                                        <td>Rs. {item.price}</td>
+                                        <td>
+                                            <input 
+                                                type="number" 
+                                                defaultValue={item.price}
+                                                onBlur={(e) => handlePriceUpdate(item.id, e.target.value)}
+                                                className="form-control form-control-sm bg-dark text-white border-secondary d-inline-block w-50 me-2" 
+                                            />
+                                            <small className="text-secondary">Click outside to save</small>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            );
+        }
 
-            const updateCartQuantity = (itemId, newQuantity) => {
-                if (newQuantity <= 0) {
-                    removeFromCart(itemId);
-                } else {
-                    setCart(prevCart => prevCart.map(item => 
-                        item.id === itemId ? { ...item, quantity: newQuantity } : item
-                    ));
-                }
-            };
 
-            const removeFromCart = (itemId) => {
-                setCart(prevCart => prevCart.filter(item => item.id !== itemId));
-            };
+        // --- MAIN APP COMPONENT ---
 
-            const placeOrder = () => {
-                const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-                const orderItems = cart.map(item => `${item.name} x ${item.quantity}`).join(', ');
-                
-                // Simulate pushing order to Admin's data
-                const newOrderId = todayOrders.length > 0 ? todayOrders[todayOrders.length - 1].id + 1 : 101;
-                todayOrders.push({ 
-                    id: newOrderId, 
-                    item: orderItems, 
-                    quantity: cart.reduce((sum, item) => sum + item.quantity, 0), 
-                    total: `Rs. ${totalAmount}`, 
-                    status: "New" 
-                });
+        function App() {
+            const [role, setRole] = React.useState(null);
+            const [view, setView] = React.useState('intro');
+            const [cart, setCart] = React.useState([]);
+            const [menuItems, setMenuItems] = React.useState(INITIAL_MENU_DATA); // Menu data is now state
 
-                alert(`Order Placed! Total: Rs. ${totalAmount}. Items: ${orderItems}. Thank you!`);
-                setCart([]);
-                setView('intro');
-            };
+            // Cart Logic
+            const addToCart = (itemToAdd) => {
+                setCart(prevCart => {
+                    const existingItem = prevCart.find(item => item.id === itemToAdd.id);
+                    if (existingItem) {
+                        return prevCart.map(item => 
+                            item.id === itemToAdd.id ? { ...item, quantity: item.quantity + 1 } : item
+                        );
+                    } else {
+                        return [...prevCart, { ...itemToAdd, quantity: 1 }];
+                    }
+                });
+            };
 
-            // Login Logic
-            const handleLogin = (e) => {
-                e.preventDefault();
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
+            const updateCartQuantity = (itemId, newQuantity) => {
+                if (newQuantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    setCart(prevCart => prevCart.map(item => 
+                        item.id === itemId ? { ...item, quantity: newQuantity } : item
+                    ));
+                }
+            };
 
-                // FIX: Password check was hardcoded to 'password' which is in the input default value.
-                // Assuming you intended the example credentials to be used with that password.
-                if (password === 'password') {
-                    if (email === ADMIN_EMAIL) {
-                        setRole('admin');
-                        setView('intro');
-                        // FIX: Hide the login screen on successful login
-                        document.getElementById('login-screen').style.display = 'none';
-                    } else if (email === USER_EMAIL) {
-                        setRole('user');
-                        setView('intro');
-                        // FIX: Hide the login screen on successful login
-                        document.getElementById('login-screen').style.display = 'none';
-                    } else {
-                        alert("Invalid Credentials. Please use the example emails.");
-                    }
-                } else {
-                    alert("Invalid password.");
-                }
-            };
+            const removeFromCart = (itemId) => {
+                setCart(prevCart => prevCart.filter(item => item.id !== itemId));
+            };
 
-            React.useEffect(() => {
-                const loginForm = document.getElementById('login-form');
-                if (loginForm) {
-                    // FIX: Ensure only one event listener is attached (React takes care of cleanup implicitly now)
-                    loginForm.addEventListener('submit', handleLogin);
-                }
-                return () => {
-                    if (loginForm) {
-                        loginForm.removeEventListener('submit', handleLogin);
-                    }
-                };
-            }, []);
+            const placeOrder = () => {
+                const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                const orderItems = cart.map(item => `${item.name} x ${item.quantity}`).join(', ');
+                
+                // Simulate pushing order to Admin's data
+                const newOrderId = todayOrders.length > 0 ? todayOrders[todayOrders.length - 1].id + 1 : 101;
+                todayOrders.push({ 
+                    id: newOrderId, 
+                    item: orderItems, 
+                    quantity: cart.reduce((sum, item) => sum + item.quantity, 0), 
+                    total: `Rs. ${totalAmount}`, 
+                    status: "New" 
+                });
 
-            // Function to render the correct view based on role and view state
-            const renderView = () => {
-                if (!role) return null;
+                alert(`Order Placed! Total: Rs. ${totalAmount}. Items: ${orderItems}. Thank you!`);
+                setCart([]);
+                setView('intro');
+            };
 
-                if (role === 'user') {
-                    switch (view) {
-                        case 'intro':
-                        case 'about':
-                            return <Intro />;
-                        case 'menu':
-                            return <MenuView menuItems={menuItems} addToCart={addToCart} />;
-                        case 'feedback':
-                            return <FeedbackView />;
-                        case 'cart':
-                            return <CartView cart={cart} updateCartQuantity={updateCartQuantity} removeFromCart={removeFromCart} placeOrder={placeOrder} />;
-                        case 'settings':
-                            return <SettingsView />;
-                        default:
-                            return <Intro />;
-                    }
-                }
+            // Login Logic
+            const handleLogin = (e) => {
+                e.preventDefault();
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
 
-                if (role === 'admin') {
-                    switch (view) {
-                        case 'intro':
-                        case 'about':
-                            return <Intro />;
-                        case 'viewFeedback':
-                            return <AdminViewFeedback />;
-                        case 'orders':
-                            return <AdminTodayOrders />;
-                        case 'adminSettings':
-                            return <AdminSettingsView menuItems={menuItems} setMenuItems={setMenuItems} />;
-                        default:
-                            return <Intro />;
-                    }
-                }
-            };
+                if (password === 'password') {
+                    if (email === ADMIN_EMAIL) {
+                        setRole('admin');
+                        setView('intro');
+                        document.getElementById('login-screen').style.display = 'none';
+                    } else if (email === USER_EMAIL) {
+                        setRole('user');
+                        setView('intro');
+                        document.getElementById('login-screen').style.display = 'none';
+                    } else {
+                        alert("Invalid Credentials. Please use the example emails.");
+                    }
+                } else {
+                    alert("Invalid password.");
+                }
+            };
 
-            return (
-                <React.Fragment>
-                    {role && <Navbar role={role} setView={setView} cart={cart} />}
-                    {renderView()}
-                    {role && <button className="btn btn-outline-secondary mt-5" onClick={() => { setRole(null); setView('intro'); setCart([]); document.getElementById('login-screen').style.display = 'block'; }}>Logout</button>}
-                </React.Fragment>
-            );
-        }
+            React.useEffect(() => {
+                const loginForm = document.getElementById('login-form');
+                if (loginForm) {
+                    loginForm.addEventListener('submit', handleLogin);
+                }
+                return () => {
+                    if (loginForm) {
+                        loginForm.removeEventListener('submit', handleLogin);
+                    }
+                };
+            }, []);
 
-        // Render the main application
-        const container = document.getElementById('app-content');
-        if (container) {
-            ReactDOM.createRoot(container).render(<App />);
-        }
-    </script>
+            // Function to render the correct view based on role and view state
+            const renderView = () => {
+                if (!role) return null;
+
+                if (role === 'user') {
+                    switch (view) {
+                        case 'intro':
+                        case 'about':
+                            return <Intro />;
+                        case 'menu':
+                            return <MenuView menuItems={menuItems} addToCart={addToCart} />;
+                        case 'feedback':
+                            return <FeedbackView />;
+                        case 'cart':
+                            return <CartView cart={cart} updateCartQuantity={updateCartQuantity} removeFromCart={removeFromCart} placeOrder={placeOrder} />;
+                        case 'settings':
+                            return <SettingsView />;
+                        default:
+                            return <Intro />;
+                    }
+                }
+
+                if (role === 'admin') {
+                    switch (view) {
+                        case 'intro':
+                        case 'about':
+                            return <Intro />;
+                        case 'viewFeedback':
+                            return <AdminViewFeedback />;
+                        case 'orders':
+                            return <AdminTodayOrders />;
+                        case 'adminSettings':
+                            return <AdminSettingsView menuItems={menuItems} setMenuItems={setMenuItems} />;
+                        default:
+                            return <Intro />;
+                    }
+                }
+            };
+
+            return (
+                <React.Fragment>
+                    {role && <Navbar role={role} setView={setView} cart={cart} />}
+                    {renderView()}
+                    {role && <button className="btn btn-outline-secondary mt-5" onClick={() => { setRole(null); setView('intro'); setCart([]); document.getElementById('login-screen').style.display = 'block'; }}>Logout</button>}
+                </React.Fragment>
+            );
+        }
+
+        // Render the main application
+        const container = document.getElementById('app-content');
+        if (container) {
+            ReactDOM.createRoot(container).render(<App />);
+        }
+    </script>
 </body>
 </html>
