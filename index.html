@@ -8,31 +8,57 @@
     
     <style>
         body {
-            background-color: black;
+            background-color: black; /* Set background to black */
             color: white;
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            min-height: 100vh; /* Ensure the body takes up the full viewport height */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         .header {
-            background-color: black;
-            padding: 10px 20px;
-            border-bottom: 3px solid #ffc107; /* Orange border for separation */
+            padding: 20px;
+            text-align: center;
         }
 
-        .logo {
+        .login-container {
             display: flex;
+            justify-content: center;
             align-items: center;
+            flex-grow: 1; 
+            padding: 20px;
         }
 
-        .logo img {
-            max-width: 100px;
-            height: auto;
-            margin-right: 10px;
+        .login-box {
+            background-color: #1a1a1a;
+            padding: 40px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-box h2 {
+            color: white;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .form-control {
+            background-color: #333;
+            border: 1px solid #555;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: black;
+            font-weight: bold;
+            width: 100%;
         }
 
         .logo-text {
@@ -44,70 +70,6 @@
         .tagline {
             color: #ccc;
             font-size: 0.9rem;
-            margin-left: 10px;
-        }
-
-        .login-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1; /* Allows the container to fill the space */
-            padding: 20px;
-        }
-
-        .login-box {
-            background-color: #1a1a1a;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .login-box h2 {
-            color: white;
-            margin-bottom: 25px;
-            font-weight: bold;
-            font-size: 2rem;
-        }
-
-        .form-control {
-            background-color: #333;
-            border: 1px solid #555;
-            color: white;
-            margin-bottom: 15px;
-            height: 50px;
-            font-size: 1rem;
-        }
-
-        .form-control:focus {
-            background-color: #444;
-            border-color: #ffc107;
-            box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
-            color: white;
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            border-color: #ffc107;
-            color: black;
-            font-weight: bold;
-            width: 100%;
-            padding: 10px;
-            font-size: 1.1rem;
-            transition: background-color 0.2s;
-        }
-
-        .btn-warning:hover {
-            background-color: #e0a800;
-            border-color: #e0a800;
-        }
-
-        .try-credentials {
-            color: #999;
-            margin-top: 20px;
-            font-size: 0.9rem;
         }
 
         .try-credentials strong {
@@ -117,14 +79,13 @@
         /* Styling for the main App screen after login */
         .app-container {
             padding: 20px;
+            flex-grow: 1;
         }
-
+        
         .menu-header {
             color: #ffc107;
             font-weight: bold;
             margin-bottom: 30px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
         }
 
         .menu-card {
@@ -134,12 +95,6 @@
             border-radius: 10px;
             margin-bottom: 20px;
             overflow: hidden;
-            transition: transform 0.2s;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.2);
         }
 
         .menu-card img {
@@ -148,19 +103,8 @@
             width: 100%;
         }
 
-        .card-body {
-            padding: 15px;
-        }
-
         .card-title {
             color: #ffc107;
-            font-weight: bold;
-            font-size: 1.25rem;
-        }
-
-        .card-text {
-            color: #ccc;
-            margin-bottom: 10px;
         }
 
         .btn-primary {
@@ -169,22 +113,6 @@
             color: black;
             font-weight: bold;
         }
-        
-        /* Utility Class for Logo container */
-        .logo-img-container {
-            width: 80px; /* Set a fixed width for the image container */
-            height: 80px; /* Set a fixed height */
-            margin: 0 auto 15px auto; /* Center the image */
-        }
-
-        .logo-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Ensures the image covers the container */
-            border-radius: 50%;
-            border: 3px solid #ffc107;
-        }
-
     </style>
 </head>
 <body>
@@ -202,6 +130,8 @@
         // ----------------------------------------------------------------------
 
         const menuData = [
+            // FIX: Image paths changed from / to ./
+            // FIX: File name changed from "bbq wings.jpg" to "bbqwings.jpg"
             { id: 1, name: "Juicy Beef Burger", description: "Classic burger with cheddar and secret sauce.", price: 12.99, img: "./burger.jpg" },
             { id: 2, name: "Spicy BBQ Wings", description: "Tender wings tossed in smoky, spicy BBQ sauce.", price: 9.99, img: "./bbqwings.jpg" },
             { id: 3, name: "Chocolate Lava Cake", description: "Warm chocolate cake with a molten center.", price: 6.50, img: "./dessert.jpg" },
@@ -212,17 +142,13 @@
         // 2. Components
         // ----------------------------------------------------------------------
 
-        function Header({ tagline, isLoggedIn }) {
+        function Header({ tagline }) {
             return (
-                <div className="header d-flex justify-content-between align-items-center">
-                    <div className="d-flex align-items-center">
-                        <img src="./logo.png" alt="Food Planet Logo" width="50" height="50"/>
-                        <div className="ms-3">
-                            <h5 className="logo-text mb-0">Food Planet</h5>
-                            {tagline && <p className="tagline mb-0">{tagline}</p>}
-                        </div>
-                    </div>
-                    {/* You can add a logout button here if isLoggedIn is true */}
+                <div className="header">
+                    {/* FIX: Image path changed from / to ./ */}
+                    <img src="./logo.png" alt="Food Planet Logo" width="100"/>
+                    <div className="logo-text">Food Planet</div>
+                    {tagline && <p className="tagline">{tagline}</p>}
                 </div>
             );
         }
@@ -248,9 +174,6 @@
             return (
                 <div className="login-container">
                     <div className="login-box">
-                        <div className="logo-img-container">
-                            <img src="./logo.png" alt="Food Planet Logo" />
-                        </div>
                         <h2 className="mb-4">Log In</h2>
                         {error && <div className="alert alert-danger" role="alert">{error}</div>}
                         <form onSubmit={handleSubmit}>
@@ -258,7 +181,7 @@
                                 <input 
                                     type="email" 
                                     className="form-control" 
-                                    placeholder="Enter Email" 
+                                    placeholder="user@foodplanet.com" 
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
@@ -279,8 +202,8 @@
                             </button>
                         </form>
                         <p className="try-credentials">
-                            Try: <strong>user@foodplanet.com</strong> (Pass: user123) or 
-                            <strong> admin@foodplanet.com</strong> (Pass: admin123)
+                            Try: <strong>user@foodplanet.com</strong> or 
+                            <strong> admin@foodplanet.com</strong>
                         </p>
                     </div>
                 </div>
@@ -306,7 +229,7 @@
         function AppScreen({ userEmail }) {
             return (
                 <>
-                    <Header tagline={`Welcome, ${userEmail.split('@')[0]}!`} isLoggedIn={true} />
+                    <Header tagline={`Welcome, ${userEmail.split('@')[0]}!`} />
                     <div className="app-container container">
                         <h1 className="menu-header text-center">Our Delicious Menu</h1>
                         <div className="row">
@@ -337,7 +260,7 @@
             } else {
                 return (
                     <>
-                        <Header tagline="Your favorite place for delicious food!" isLoggedIn={false} />
+                        <Header tagline="Your favorite place for delicious food!" />
                         <LoginComponent onLogin={handleLogin} />
                     </>
                 );
